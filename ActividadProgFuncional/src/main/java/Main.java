@@ -13,7 +13,7 @@ public class Main {
 
         //a. Crear cadenas de manera aleatoria.
         List<String> cadena = Stream.generate(() ->{
-            int longitud = generarNumeroAleatorio(1, 10);
+            int longitud = generarNumeroAleatorio(0, 10);
             return Stream.generate(() -> {
                 int index = generarNumeroAleatorio(0, banco.length() - 1);
                 return banco.charAt(index);
