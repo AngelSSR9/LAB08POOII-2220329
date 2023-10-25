@@ -12,18 +12,18 @@ public class Main {
         String banco = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
 
         //a. Crear cadenas de manera aleatoria.
-        List<String> cadena = Stream.generate(() ->{
-            int longitud = generarNumeroAleatorio(0, 10);
-            return Stream.generate(() -> {
-                int index = generarNumeroAleatorio(0, banco.length() - 1);
-                return banco.charAt(index);
-            }).limit(longitud)
-                    .map(Object::toString)
-                    .collect(Collectors.joining());
-        }).limit(10)
+        List<String> cadena = Stream.generate(() -> {
+                    int longitud = generarNumeroAleatorio(0, 10);
+                    return Stream.generate(() -> {
+                                int index = generarNumeroAleatorio(0, banco.length() - 1);
+                                return banco.charAt(index);
+                            }).limit(longitud)
+                            .map(Object::toString)
+                            .collect(Collectors.joining());
+                }).limit(10)
                 .map(Object::toString)
                 .toList();
-        
+
         System.out.println(cadena);
         System.out.println("--------------------");
 
@@ -48,11 +48,20 @@ public class Main {
         System.out.println("Lista con cadenas de mas de 5 caract: " + cadenasFiltrada);
 
         // g. Convertir las palabras a mayúsculas y concatenarlos usando una coma ‘,’.
-        String superCadena = cadenasFiltrada .stream().map(String::toUpperCase).collect(Collectors.joining(","));
+        String superCadena = cadenasFiltrada.stream().map(String::toUpperCase).collect(Collectors.joining(","));
         System.out.println("Supercadena: " + superCadena);
 
         System.out.println("----------------------------------");
-        IntSummaryStatistics stats = IntStream.of(1,2,3,4,5,6,7,8,9,10).summaryStatistics();
+
+        Random r = new Random();
+        IntSummaryStatistics stats = Stream.generate(() -> {
+                    int numero = r.nextInt(10);
+                    System.out.println(numero);
+                    return numero;
+                })
+                .limit(10)
+                .collect(Collectors.summarizingInt(Integer::intValue));
+
         System.out.println("Cantidad de elementos: " + stats.getCount());
         System.out.println("Suma: " + stats.getSum());
         System.out.println("Mínimo: " + stats.getMin());
